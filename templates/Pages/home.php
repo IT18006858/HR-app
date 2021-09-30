@@ -106,7 +106,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
                             <li class="bullet success" > <a  href="http://localhost/HR-system/hrApp/dependents"> Dependent managemnt  </a></li>
                             <li class="bullet success" > <a  href="http://localhost/HR-system/hrApp/departments"> Department managemnt  </a></li>
                            
-                            <li class="bullet success" > <a  href="http://localhost/HR-system/hrApp/employee"> Employee managemnt  </a></li>
+                            <li class="bullet success" > <a  href="http://localhost/HR-system/hrApp/employees"> Employee managemnt  </a></li>
                         
                             <li class="bullet success" > <a  href="http://localhost/HR-system/hrApp/jobs"> Job managemnt  </a></li>
                             <li class="bullet success" > <a  href="http://localhost/HR-system/hrApp/locations"> Location managemnt  </a></li>
