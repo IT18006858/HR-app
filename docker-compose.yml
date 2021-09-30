@@ -1,14 +1,14 @@
 version: '2'
-# define all services
+# defining all services
 services:
-  # our service is called CakePHP ;-)
+  # our service is called hrapp ;-)
   hrapp:
     # we want to use the image which is build from our Dockerfile
     build: .
-    # apache is running on port 80 but we want to expose this to port 4000 on our local machine
+    # apache is running on port 80 but we want to expose this to port 8080 on our local machine
     ports:
       - "8080:80"
-    # we depending on the mysql backend
+    #  mysql backend
     depends_on:
       - mysql
     # we mount the working dir into the container, handy for development 
@@ -27,7 +27,7 @@ services:
        - mysql_data:/var/lib/mysql
     # setting some envvars to create the DB
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=cakephp
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=hr_db
 volumes:
     mysql_data:
