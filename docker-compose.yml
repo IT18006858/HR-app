@@ -1,43 +1,33 @@
-version: '3.4'
-
+version: '2'
+# define all services
 services:
-  php:
-    build:
-      context: .
-      target: cakephp_php
-    env_file:
-      - ./.docker/php.env.development
-    environment:
-      PHP_IDE_CONFIG: "serverName=localhost"
-    volumes:
-      - ./app:/srv/app
-      - ./.docker/php/development:/usr/local/etc/php
-      - ~/.ssh/:/home/root/.ssh
-    depends_on:
-      - db
-
-  db:
-    image: library/mysql:8
-    command: mysqld --sql_mode="" --default-authentication-plugin=mysql_native_password
-    restart: always
-    env_file:
-      - ./.docker/mysql.env.development
-    volumes:
-      - data:/var/lib/mysql
-    ports:
-      - "3307:3306"
-
-  web:
-    image: nginx:1.19-alpine
-    working_dir: /srv/app/
-    environment:
-      TERM: Linux
-    volumes:
-      - ./app:/srv/app
-      - ./.docker/nginx:/etc/nginx/conf.d
+  # our service is called CakePHP ;-)
+  hrapp:
+    # we want to use the image which is build from our Dockerfile
+    build: .
+    # apache is running on port 80 but we want to expose this to port 4000 on our local machine
     ports:
       - "8080:80"
+    # we depending on the mysql backend
     depends_on:
-      - php
+      - mysql
+    # we mount the working dir into the container, handy for development 
+    volumes:
+      - .:/var/www/html/
+    environment:
+       
+      - MYSQL_URL=mysql
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=
+  mysql:
+    # we use the mysql base image, version 5.6.36
+    image: mysql:5.6.36
+    # we mount a datavolume to make sure we don't loose data
+    volumes:
+       - mysql_data:/var/lib/mysql
+    # setting some envvars to create the DB
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=cakephp
 volumes:
-  data:
+    mysql_data:
